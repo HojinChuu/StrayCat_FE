@@ -3,37 +3,45 @@
     <div class="row align-items-center">
       <div class="col col-5 text-center text-white">
         <img src="https://image.ibb.co/n7oTvU/logo_white.png" />
-        <!-- <img src="https://i.ibb.co/59GT0Mq/pngegg.png">      -->
         <h1>Welcome</h1>
         <p style="font-weight:lighter">고양이를 위한 dfnaiodn</p>
       </div>
       <div class="col col-7 bg-light right">
+        <!-- alert -->
+        <div v-if="Object.keys(errors).length !== 0" class="alert alert-danger alert-dismissible fade show">
+          <ul>
+            <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+          </ul>
+          <button type="button" @click="alertDismiss" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <form @submit="onSubmit">
           <div class="form-group">
-            <label for="firstname">First Name <span class="text-danger">*</span></label>
-            <input type="text" v-model="userData.firstName" class="form-control" id="firstname" />
+            <label for="firstName">First Name <span class="text-danger">*</span></label>
+            <input type="text" v-model="userData.firstName" class="form-control" id="firstName" name="firstName" />
           </div>
           <div class="form-group">
-            <label for="lastname">Last Name <span class="text-danger">*</span></label>
-            <input type="text" v-model="userData.lastName" class="form-control" id="lastname" />
+            <label for="lastName">Last Name <span class="text-danger">*</span></label>
+            <input type="text" v-model="userData.lastName" class="form-control" id="lastName" name="lastName" />
           </div>
           <div class="form-group">
             <label for="email">Email <span class="text-danger">*</span></label>
-            <input type="email" v-model="userData.email" class="form-control" id="email" />
+            <input type="email" v-model="userData.email" class="form-control" id="email" name="email" />
           </div>
           <div class="form-group">
-            <label for="nickname">Nick Name <span class="text-danger">*</span></label>
-            <input type="text" v-model="userData.nickName" class="form-control" id="nickname" />
+            <label for="nickName">Nick Name <span class="text-danger">*</span></label>
+            <input type="text" v-model="userData.nickName" class="form-control" id="nickName" name="nickName" />
           </div>    
           <div class="form-group">
             <label for="password">Password <span class="text-danger">*</span></label>
-            <input type="password" v-model="userData.password" class="form-control" id="password" />
+            <input type="password" v-model="userData.password" class="form-control" id="password" name="password" />
           </div>
           <div class="form-group">
             <label for="confirm_password">Confirm Password <span class="text-danger">*</span></label>
             <input type="password" v-model="userData.confirm_password" class="form-control" id="confirm_password" />
           </div>
-          <input type="submit" class="btn btn-lg btn-primary btn-block mt-5 p-3" value="Register"/>
+          <button type="submit" class="btn btn-lg btn-primary btn-block mt-5 p-3">Register</button>
         </form>
       </div>
     </div>
@@ -55,21 +63,26 @@ export default {
         nickName: '',
         password: '',
         confirm_password: ''
-      }
+      },
+      errors: {}
     }
   },
   methods: {
     onSubmit(e) {
       e.preventDefault();
-      delete this.userData['confirm_password']
       axios.post('http://localhost/straycat_server/register', this.userData)
       .then(res => {
         this.$router.push({name: 'Home'})
         showAlert.success('Great', 'Register success')
       })
       .catch(err => {
-        // error 처리 validation
+        if (err.response) {
+          this.errors = err.response.data.messages[0];
+        }
       })
+    },
+    alertDismiss() {
+      this.errors = {}
     }
   }
 }

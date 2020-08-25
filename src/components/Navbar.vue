@@ -26,7 +26,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">Login</button>
+            <button type="button" class="btn" data-toggle="modal" data-target="#LoginModal">Login</button>
           </li>
         </ul>
       </div>

@@ -1,10 +1,22 @@
 <template>
-  <div class="modal fade" id="exampleModal" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal fade" id="LoginModal" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Welcome</h5>
+          <h5 class="modal-title" id="LoginModalLabel">Welcome</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- alert -->
+        <div 
+          v-if="Object.keys(errors).length !== 0" 
+          class="alert alert-danger alert-dismissible fade show"
+        >
+          <ul>
+            <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+          </ul>
+          <button type="button" @click="alertDismiss" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -52,7 +64,8 @@ export default {
       userData: {
         email: '',
         password: ''
-      }
+      },
+      errors: {}
     }
   },
   methods: {
@@ -62,11 +75,14 @@ export default {
       .then(res => {
         // 받은 session token 저장 
         // 성공 alert
-        $('#exampleModal').modal('hide'); 
+        $('#LoginModal').modal('hide'); 
       })
       .catch(err => {
-        // error 처리 validation
+        this.errors = err.response.data.messages[0]
       })
+    },
+    alertDismiss() {
+      this.errors = {}
     }
   }
 }
