@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <h1>{{ title }}</h1>
   </div>
 </template>
 
@@ -9,9 +9,14 @@ import axios from 'axios';
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      title: ''
+    }
+  },
   async created() {
-    const response = await axios.get('http://localhost/straycat_server');
-    console.log(response)
+    const res = await axios.get('http://localhost/straycat_server/');
+    this.title = res.data;
   }
 }
 </script>
