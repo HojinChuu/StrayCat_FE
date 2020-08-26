@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store';
 
 Vue.use(VueRouter)
 
-  const routes = [
+const Admin = (to, from, next) => {
+  store.getters.userInfo.userType == 'admin' ? next() : router.push({name: 'Home'})
+}
+
+const routes = [
   {
     path: '/',
     name: 'Home',
@@ -18,6 +23,12 @@ Vue.use(VueRouter)
     path: '/register',
     name: 'Register',
     component: () => import('../views/Auth/Register.vue')
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/admin/Home.vue'),
+    beforeEnter: Admin
   }
 ]
 

@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapActions } from 'vuex'
 import showAlert from '@/alert';
 
 export default {
@@ -68,17 +68,21 @@ export default {
     }
   },
   methods: {
+    ...mapActions([ 'REGISTER' ]),
+
     onSubmit(e) {
       e.preventDefault();
-      axios.post('http://localhost/straycat_server/register', this.userData)
-      .then(res => {
+
+      const data = this.userData
+      const headers = { "Content-Type": "application/json" }
+
+      this.REGISTER({ data, headers })
+      .then(() => {
         this.$router.push({name: 'Home'})
         showAlert.success('Great', 'Register success')
       })
       .catch(err => {
-        if (err.response) {
-          this.errors = err.response.data.messages[0];
-        }
+        this.errors = err.response.data.messages[0];
       })
     },
     alertDismiss() {

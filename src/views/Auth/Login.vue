@@ -55,7 +55,8 @@
 </template> 
 
 <script>
-import axios from 'axios';
+import { mapActions, mapGetters } from "vuex";
+import showAlert from '@/alert';
 
 export default {
   name: "Login",
@@ -68,17 +69,35 @@ export default {
       errors: {}
     }
   },
+  computed: {
+    ...mapGetters([ 'accessToken', 'userId' ])
+  },
   methods: {
+    ...mapActions([ 'LOGIN', 'FETCH_USERINFO' ]),
+    
     onSubmit(e) {
       e.preventDefault();
-      axios.post('http://localhost/straycat_server/login', this.userData)
+      const data = this.userData
+      const headers = { "Content-Type": "application/json" };
+      
+      this.LOGIN({ data, headers })
       .then(res => {
-        // 받은 session token 저장 
-        // 성공 alert
-        $('#LoginModal').modal('hide'); 
+        $('#LoginModal').modal('hide');
+        showAlert.success('Great', 'Login success')
+        if (this.$router.currentRoute.name !== 'Home') {
+          this.$router.push({ name: 'Home' })
+        }
       })
       .catch(err => {
+        console.log(err)
         this.errors = err.response.data.messages[0]
+      })
+      .finally(() => {
+        if (this.accessToken === undefined) {} else {
+          const user_id = this.userId;
+          const headers = { "Authorization": this.accessToken };
+          this.FETCH_USERINFO({user_id, headers});
+        }
       })
     },
     alertDismiss() {
