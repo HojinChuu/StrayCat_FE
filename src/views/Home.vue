@@ -176,10 +176,10 @@ export default {
 header.masthead {
   position: relative;
   background-color: #343a40;
-  background: url("/static/bg-masthead.jpg") no-repeat center center;
+  /* background: url("/static/cat.jpg") no-repeat center center; */
+  background: url("/static/cat.jpg") no-repeat;
   background-size: cover;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
+  height: 90vh;
 }
 
 header.masthead .overlay {
@@ -190,10 +190,6 @@ header.masthead .overlay {
   top: 0;
   left: 0;
   opacity: 0.3;
-}
-
-header.masthead h1 {
-  font-size: 2rem;
 }
 
 @media (min-width: 768px) {
@@ -211,7 +207,7 @@ header.masthead h1 {
 }
 
 .showcase .showcase-img {
-  min-height: 30rem;
+  min-height: 40rem;
   background-size: cover;
 }
 
