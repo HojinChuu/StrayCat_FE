@@ -1,5 +1,7 @@
 <template>
-  <div>admin</div>
+  <div>
+    <h1>Map</h1>
+  </div>
 </template>
 
 <script>

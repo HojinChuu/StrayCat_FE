@@ -15,21 +15,36 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
+    path: '/map',
+    name: 'Map',
+    component: () => import('../views/Map.vue')
+  },
+  {
+    path: '/market',
+    name: 'Market',
+    component: () => import('../views/Market.vue')
+  },
+  {
+    path: '/community',
+    name: 'Community',
+    component: () => import('../views/Community.vue')
+  },
+  {
+    path: '/notice',
+    name: 'Notice',
+    component: () => import('../views/Notice.vue')
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/admin/Admin.vue'),
+    beforeEnter: Admin
   },
   {
     path: '/register',
     name: 'Register',
     component: () => import('../views/Auth/Register.vue')
   },
-  {
-    path: '/admin',
-    name: 'Admin',
-    component: () => import('../views/admin/Home.vue'),
-    beforeEnter: Admin
-  }
 ]
 
 const router = new VueRouter({
