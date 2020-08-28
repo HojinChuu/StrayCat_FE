@@ -11,6 +11,11 @@ const mutations = {
 	},
   FETCH_USERINFO(state, userInfo) {
     state.userInfo = userInfo
+  },
+  
+  // Community
+  FETCH_POSTS(state, posts) {
+    state.posts = posts
   }
 }
 

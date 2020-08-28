@@ -26,3 +26,21 @@ export const auth = {
     return serverRequest('post', `/sessions/${token_info.user_id}`, undefined, token_info.headers)
   }
 }
+
+export const community = {
+  create(post_info) {
+    return serverRequest('post', '/community', post_info.data, undefined)
+  },
+  getPosts() {
+    return serverRequest('get', '/community', undefined, undefined)
+  },
+  getPost(post_id) {
+    return serverRequest('get', `/community/${post_id}`, undefined, undefined)
+  },
+  removePost(post) {
+    return serverRequest('delete', `/community/${post.id}`, undefined, undefined)
+  },
+  update(post_info) {
+    return serverRequest('patch', `/community/${post_info.post_id}`, post_info.editData, post_info.headers)
+  },
+}

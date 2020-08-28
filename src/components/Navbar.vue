@@ -61,7 +61,7 @@ import { mapActions, mapGetters } from "vuex"
 import showAlert from '@/alert';
 
 export default {
-  name: 'HelloWorld',
+  name: 'Navbar',
   components: { Login },
   computed: {
     ...mapGetters([ 'accessToken', 'userId' ])

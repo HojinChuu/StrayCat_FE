@@ -1,6 +1,7 @@
 const state = {
     tokenInfo: {},
-    userInfo: {}
+    userInfo: {},
+    posts: []
   }
   
   export default state

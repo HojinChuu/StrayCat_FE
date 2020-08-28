@@ -17,6 +17,25 @@ const actions = {
   async FETCH_USERINFO({commit}, token_info) {
     const res = await api.auth.getUserInfo(token_info)
     commit('FETCH_USERINFO', res.data)
+  },
+
+  // Community
+  async CREATE_POST(_, post_info) {
+    return await api.community.create(post_info)
+  },
+  async FETCH_POSTS({commit}) {
+    const res = await api.community.getPosts()
+    commit('FETCH_POSTS', res.data)
+  },
+  async FETCH_POST(_, post_id) {
+    return await api.community.getPost(post_id)
+  },
+  async REMOVE_POST(_, post) {
+    return await api.community.removePost(post)
+  },
+  async UPDATE_POST(_, post_info) {
+    return await api.community.update(post_info)
   }
 }
+
 export default actions

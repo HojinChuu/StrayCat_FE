@@ -27,7 +27,22 @@ const routes = [
   {
     path: '/community',
     name: 'Community',
-    component: () => import('../views/Community.vue')
+    props: true,
+    component: () => import(/* webpackChunkName: "" */ '../views/Community.vue'),
+    children: [
+      {
+        path: 'create',
+        name: 'PostCreate',
+        props: true,
+        component: () => import(/* webpackChunkName: "" */ '../components/Community/Create.vue'),
+      },
+      {
+        path: 'detail/:id',
+        name: 'PostDetail',
+        props: true,
+        component: () => import(/* webpackChunkName: "" */ '../components/Community/PostDetail.vue'),
+      }
+    ]
   },
   {
     path: '/notice',
